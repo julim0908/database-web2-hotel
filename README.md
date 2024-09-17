@@ -23,6 +23,7 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `hotel_tandil`
 --
+Creamos una base de datos que simula un sistema de reservaciones para un hotel, en el que la relacion principal de las tablas es el identificador unico del cliente
 
 -- --------------------------------------------------------
 
