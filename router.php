@@ -2,7 +2,7 @@
 
  include "app/controllers/user_controller.php";
  include 'app/controllers/cliente_controller.php';
- 
+ require_once 'app/controllers/reservaciones_controller.php';
 
 
 
@@ -47,6 +47,22 @@ switch ($params[0]) {
             $controller = new ClientController();
             $controller->editarClient($params[1]);
             break;
+    case 'listar':
+        $controller = new ReservacionController();
+        $controller->showReservacion();
+        break;
+    case 'agregar':
+        $controller = new ReservacionController();
+        $controller->addReservacion();
+        break;
+    case 'eliminarReservacion':
+        $controller = new ReservacionController();
+        $controller->removeReservation($params[1]);
+        break;
+    case 'cliente':
+        $controller = new ReservacionController();
+        $controller->showClientByReserv($params[1]);
+        break;
     default: 
         header("HTTP/1.0 404 Not Found");
         echo "404 Page Not Found"; // Deberíamos llamar a un controlador que maneje esto
