@@ -1,6 +1,6 @@
 
 
-<form action="agregarCliente" method="POST">
+<form action="agregarClient" method="POST">
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" name="nombre" required>
 

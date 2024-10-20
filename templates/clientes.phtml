@@ -1,13 +1,18 @@
+
+<?php include 'templates/header.phtml'; ?>
 <h2>Cliente</h2>
 <ul>
     <?php if (!empty($client)): ?>
         <?php foreach($client as $clientes): ?>
             <li>
-                id cliente<?=$clientes->id_cliente ?>Nombre <?= $reservas->nombre ?> - Apellido <?= $reservas->apellido ?> - Email: <?= $reservas->email ?> - Telefono <?= $reservas->Telefono ?>
-                <a href="cliente/<?= $clientes->id_cliente ?>">Ver detalles</a>
+                id cliente<?=$clientes->id_cliente ?>Nombre <?= $clientes->nombre ?> - Apellido <?= $clientes->apellido ?> - Email: <?= $clientes->email ?> - Telefono <?= $clientes->telefono ?>
+                <a href="<?= BASE_URL ?>">Volver</a>
+
             </li>
         <?php endforeach; ?>
     <?php else: ?>
         <p>No hay reservas disponibles de este cliente</p>
     <?php endif; ?>
 </ul>
+<?php include 'templates/footer.phtml'; ?>
+

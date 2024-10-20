@@ -12,9 +12,9 @@ class ReservacionController {
         $this->view = new ReservacionView();
     }
 
-    function showReservacion() {
+    function showReservaciones() {
         $reservacion = $this->model->getReservacion();
-        $this->view->showReservacion($reservacion);   
+        $this->view->showReservaciones($reservacion);   
     }
 
     function addReservacion() {

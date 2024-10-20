@@ -20,14 +20,15 @@ if (!empty($_GET['action'])) {
 $params = explode('/', $action);
 
 switch ($params[0]) {
-    case 'listar':
+    case 'listarClientes':
         $controller = new ClientController();
         $controller->showClient();
         break;
     case 'home':
         $controller = new ClientController();
         $controller->showClient();
-    case 'agregarCliente':
+        break;
+    case 'agregarClient':
         $controller = new ClientController();
         $controller->addClient();
         break;
@@ -47,9 +48,10 @@ switch ($params[0]) {
             $controller = new ClientController();
             $controller->editarClient($params[1]);
             break;
+//reservaciones
     case 'listar':
         $controller = new ReservacionController();
-        $controller->showReservacion();
+        $controller->showReservaciones();
         break;
     case 'agregar':
         $controller = new ReservacionController();
@@ -59,7 +61,7 @@ switch ($params[0]) {
         $controller = new ReservacionController();
         $controller->removeReservation($params[1]);
         break;
-    case 'cliente':
+    case 'clientes':
         $controller = new ReservacionController();
         $controller->showClientByReserv($params[1]);
         break;

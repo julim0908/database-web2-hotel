@@ -29,7 +29,7 @@ class ClientController {
                 $email = $_POST['email'];
                 $telefono = $_POST['telefono'];
 
-                $id = $this->model->InsertCliente($nombre, $apellido, $email, $telefono);
+                $id = $this->model->InsertClient($nombre, $apellido, $email, $telefono);
                 header('location: '. BASE_URL);
                 }
 

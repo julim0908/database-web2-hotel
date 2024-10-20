@@ -20,7 +20,7 @@ class ClientModel {
         return $client; 
     }
     
-    function InsertCliente($nombre, $apellido, $email, $telefono) {
+    function InsertClient($nombre, $apellido, $email, $telefono) {
         $db = $this->getConnection();
         $query = $db->prepare("INSERT INTO clientes (nombre, apellido, email, telefono) VALUES (?, ?, ?, ?)");
         $query->execute([$nombre, $apellido, $email, $telefono]);
