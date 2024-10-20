@@ -1,24 +1,19 @@
 <?php
 class ClientView {
+    // Muestra la lista de clientes
     function showClient($clients) {
-        if (!empty($clients)) { ?>
-            <h2>Lista de Clientes</h2>
-            <table>
-                <tr><th>Nombre</th><th>Apellido</th><th>Email</th><th>Teléfono</th></tr>
-                <?php
-                // Recorre los clientes y los imprime en una tabla
-                foreach ($clients as $client) { ?>
-                    <tr>
-                        <td><?php echo $client->nombre; ?></td> 
-                        <td><?php echo $client->apellido; ?></td> 
-                        <td><?php echo $client->email; ?></td> 
-                        <td><?php echo $client->telefono; ?></td>
-                    </tr>
-                <?php } ?>
-            </table>
-        <?php } else {
-            echo '<p>No hay clientes disponibles.</p>';
-        }
+         $count = count($clients);
+        require_once 'templates/lista_clientes.phtml';
+    }
+    function showError($msg){
+        echo "<h1>ERROR! 404</h1>";
+        echo "<h2> $msg </h1>";
+    }
+    function showReservacion($client, $reserv){
+        require 'templates/reservas_de_clientes.phtml';
+    }
+    function showEditarForm($client){
+        require 'templates/form_editar_cliente.phtml';
     }
 }
 ?>

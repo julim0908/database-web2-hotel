@@ -1,0 +1,21 @@
+
+<?php 
+include 'templates/header.phtml';
+?>
+
+<h2>Reservas de este cliente</h2>
+<ul>
+    <?php if (!empty($reserv)): ?>
+        <?php foreach($reserv as $reservas): ?>
+            <li>
+                id cliente<?=$reservas->id_cliente ?>Numero de habitacion <?= $reservas->numero_habitacion ?> - Fecha de entrada: <?= $reservas->fecha_entrada ?> - Fecha de salida: <?= $reservas->fecha_salida ?> - Monto <?= $reservas->monto ?>
+                <a href="reserva/<?= $reservas->id_reserva ?>">Ver detalles</a>
+            </li>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No hay reservas disponibles de este cliente</p>
+    <?php endif; ?>
+</ul>
+<?php 
+include 'templates/footer.phtml';
+?>

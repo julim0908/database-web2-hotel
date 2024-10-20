@@ -1,0 +1,37 @@
+<?php include_once 'templates/header.phtml'; ?>
+
+<h2>Lista de Clientes</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
+    // Recorre cada cliente y muestra los detalles en la tabla
+    foreach ($clients as $client) { ?>
+        <tr>
+            <td><?php echo $client->nombre; ?></td> 
+            <td><?php echo $client->apellido; ?></td> 
+            <td><?php echo $client->email; ?></td> 
+            <td><?php echo $client->telefono; ?></td>
+            <td>
+                <a href="<?php echo 'preEditarCliente/'.$client->id_cliente ?>">Editar</a>
+                <a href="<?php echo 'eliminarCliente/'.$client->id_cliente ?>">Eliminar</a>
+                <a href="<?php echo 'reserva/'.$client->id_cliente; ?>">Ver reservas</a>
+            </td>
+        </tr>
+    <?php } ?>
+    </tbody>
+</table>
+
+<?php 
+include_once 'templates/form_agregar_cliente.php'; 
+include_once 'templates/footer.phtml'; 
+?>
