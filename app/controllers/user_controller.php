@@ -3,10 +3,13 @@
     require_once './app/models/user_model.php';
 
     class UserController {
-        public function __construct() {
-            $this->model = new userModel();
-            $this->view = new userView();
-        }
+        private $model;
+        private $view;
+
+        function __construct() {
+        $this->model = new UserModel();
+        $this->view = new UserView();
+    }
 
         function showFormLogin() {
             $this->view->showFormLogin();

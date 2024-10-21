@@ -10,7 +10,7 @@
             $db = $this->getConnection();
             $query = $db->prepare("SELECT * FROM usuarios WHERE nombre = ?");
             $query->execute([$user]);
-            $usuario = $query->fetchAll(PDO::FETCH_OBJ);  
-            return $usuario;
+            $user = $query->fetchAll(PDO::FETCH_OBJ);  
+            return $user;
         }
     }
