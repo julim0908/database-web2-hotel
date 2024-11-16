@@ -1,4 +1,5 @@
 <?php
-    class Response {
+
+class Response {
         public $user = null;
     }

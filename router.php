@@ -1,92 +1,65 @@
-<?php
- //require_once 'app/libs/response.php';
- //require_once 'app/middlewares/sessionAuthMiddleware.php';
- //include "app/controllers/user_controller.php";
- include 'app/controllers/cliente_controller.php';
- require_once 'app/controllers/reservaciones_controller.php';
-
-
-
+<?php 
+require_once 'libs/response.php';
+require_once 'app/middlewares/session.auth.middleware.php';
+require_once "app/middlewares/verifyAuthMiddleware.php";
+require_once 'app/controllers/Auth.controller.php';
+require_once 'app/controllers/cliente_controller.php';
 
 // base_url para redirecciones y base tag
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . dirname($_SERVER['PHP_SELF']).'/');
 
-//$res= new Response();
+$res = new Response();
 
-$action = 'listar'; // acción por defecto si no se envía ninguna
+$action = 'listarClientes'; // acción por defecto si no se envía ninguna
 if (!empty($_GET['action'])) {
     $action = $_GET['action'];
 }
-
-
 
 // Dividimos la acción en partes por si hay parámetros adicionales en la URL
 $params = explode('/', $action);
 
 switch ($params[0]) {
     case 'listarClientes':
-       // sessionAuthMiddleware($res);
+        //sessionAuthMiddleware($res);
         $controller = new ClientController();
-        $controller->showClient();
+        $controller->showClientes();
         break;
-    case 'home':
+    case 'EliminarCliente':
+        //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res);
         $controller = new ClientController();
-        $controller->showClient();
+        $controller->RemoveCliente($params[1]);
+        break;
+    case 'EditarCliente':
+        //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res);
+        $controller = new ClientController();
+        $controller->mostrarFormEditCliente($params[1]);
+        break;
+    case 'ActualizarCliente':
+        //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res);
+        $controller = new ClientController();
+        $controller->modificarCliente($params[1]);
         break;
     case 'agregarClient':
         //sessionAuthMiddleware($res);
+        //verifyAuthMiddleware($res);
         $controller = new ClientController();
-        $controller->addClient();
+        $controller->insertarCliente();
         break;
-    case 'eliminarCliente':
-       // sessionAuthMiddleware($res);
-        $controller = new ClientController();
-        $controller ->removeClient($params[1]);
-        break;
-    case 'reserva':
-       // sessionAuthMiddleware($res);
-        $controller = new ClientController();
-        $controller->showReservByClient($params[1]);
-        break;
-    case 'preEditarCliente':  
-       // sessionAuthMiddleware($res);
-        $controller = new ClientController();
-        $controller->preEdit($params[1]);
-        break;
-    case 'editarClient': 
-       // sessionAuthMiddleware($res);
-        $controller = new ClientController();
-        $controller->editarClient($params[1]);
-        break;
-//reservaciones
-    case 'listar':
-       // sessionAuthMiddleware($res);
-        $controller = new ReservacionController();
-        $controller->showReservaciones();
-        break;
-    case 'agregar':
-       // sessionAuthMiddleware($res);
-        $controller = new ReservacionController();
-        $controller->addReservacion();
-        break;
-    case 'eliminarReservacion':
-       // sessionAuthMiddleware($res);
-        $controller = new ReservacionController();
-        $controller->removeReservation($params[1]);
-        break;
-    case 'clientes':
-       // sessionAuthMiddleware($res);
-        $controller = new ReservacionController();
-        $controller->showClientByReserv($params[1]);
-        break;
-    /*case 'showFormLogin':
-        $controller = new UserController();
-        $controller->showFormLogin($params[1]);
+    case 'showLogin':
+        $controller = new AuthController();
+        $controller->ShowLogin();
         break;
     case 'login':
-        $controller = new UserController();
-        $controller->login($params[1]);
-        break;*/
+        $controller = new AuthController();
+        $controller->Login();
+        break;
+    case 'Logout':
+          $controller = new AuthController();
+         $controller->logout();
+         break;
     default: 
         header("HTTP/1.0 404 Not Found");
         echo "404 Page Not Found"; // Deberíamos llamar a un controlador que maneje esto

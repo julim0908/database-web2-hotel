@@ -1,52 +1,37 @@
 <?php
-class ClientModel {
+require_once 'app/models/model.php';
+class ClientModel extends Model {
 
-      private function getConnection(){
-        return new PDO('mysql:host=localhost;dbname=hotel_tandil;charset=utf8', 'root', '');
-    }
+function GetAllClientes() {
+  $query = $this->db->prepare("SELECT * FROM clientes");
+  $query->execute();
+  return $query->fetchAll(PDO::FETCH_OBJ);  
+  }
 
-    function GetAllClients() {
-        $db = $this->getConnection();
-        $query = $db->prepare("SELECT * FROM clientes");
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_OBJ);  
-    }
+  function getClientes($id_cliente){
+    $query = $this->db->prepare("SELECT * FROM clientes WHERE id_cliente = ?");
+    $query->execute([$id_cliente]);
+    $cliente = $query->fetch(PDO::FETCH_OBJ);  
+    return $cliente;
+  }
 
-    function getClient($id) {
-        $db = $this->getConnection();
-        $query = $db->prepare("SELECT * FROM clientes WHERE id_cliente = ?");
-        $query->execute([$id]);
-        $client = $query->fetchAll(PDO::FETCH_OBJ);  
-        return $client; 
-    }
-    
-    function InsertClient($nombre, $apellido, $email, $telefono) {
-        $db = $this->getConnection();
-        $query = $db->prepare("INSERT INTO clientes (nombre, apellido, email, telefono) VALUES (?, ?, ?, ?)");
-        $query->execute([$nombre, $apellido, $email, $telefono]);
-        return $db->lastInsertId();  
-    }
+  function deleteCliente($id){
+    $query = $this->db->prepare("DELETE FROM clientes WHERE id_cliente = ?");
+    $query->execute([$id]);
+    return $this->db->lastInsertId();  
+  }
 
-    function deleteClient($id){
-        $db = $this->getConnection();
-        $query = $db->prepare("DELETE FROM clientes WHERE id_cliente = ?");
-        $query->execute([$id]);
-        return $db->lastInsertId();  
-    }
-
-    function getReservationByClient($id){
-        $db = $this->getConnection();
-        $query = $db->prepare("SELECT * FROM reservaciones WHERE id_cliente = ?");
-        $query->execute([$id]);
-        return $query->fetchAll(PDO::FETCH_OBJ);
-
-    }
-    function editarClient($id_cliente,$nombre, $apellido, $email, $telefono) {
-        $db = $this->getConnection();
-        $query = $this->$db->prepare("UPDATE clientes SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE id_cliente = ?");
-        $result = $query->execute([$id_cliente,$nombre, $apellido, $email, $telefono]);
-        return $result;
-    }
+  public function editarCliente($nombre, $apellido, $email, $telefono, $id_cliente) { 
+    $query = $this->db->prepare('UPDATE clientes SET nombre = ?, apellido = ?, email = ?, telefono = ? WHERE id_cliente = ?');
+    $resultado = $query->execute([$nombre, $apellido, $email, $telefono, $id_cliente]);
+    return $resultado; // Retorna true si se ejecutó correctamente, false si hubo un error
+  }
+  
+  function InsertCliente($nombre, $apellido, $email, $telefono){
+    $query = $this->db->prepare("INSERT INTO clientes (nombre, apellido, email, telefono) VALUES (?, ?, ?, ?)");
+    $query->execute([$nombre, $apellido, $email, $telefono]);
+    return $this->db->lastInsertId();  
+}
 
 }
-?>
+

@@ -1,10 +1,9 @@
 <?php
-
+    
 include_once 'app/models/cliente_model.php';
 include_once 'app/views/cliente_view.php';
 
 class ClientController {
-
     private $model;
     private $view;
 
@@ -13,65 +12,63 @@ class ClientController {
         $this->view = new ClientView();
     }
 
-    function showClient(){
-        $client = $this->model->getAllClients();
+    function showClientes(){
+        $client = $this->model->getAllClientes();
         $this->view->showClient($client);
-        
     }
-        function addClient() {
-            // Verificar que los campos existan y no estén vacíos
-            if (empty($_POST['nombre']) || empty($_POST['apellido']) || empty($_POST['email']) || empty($_POST['telefono'])) {
-                $this->view->showError("Falta llenar campos obligatorios");
-                return;
-                 }
-                $nombre = $_POST['nombre'];
-                $apellido = $_POST['apellido'];
-                $email = $_POST['email'];
-                $telefono = $_POST['telefono'];
+    function RemoveCliente($id){
+        $this->model->deleteCliente($id);
+        header('location: '. BASE_URL);
+    }
+//editar cliente
+public function mostrarFormEditCliente($id_cliente){
+    $cliente = $this->model->getClientes($id_cliente);
+    if ($cliente) {
+        $this->view->formEditCliente($cliente);
+    } else {
+        echo "Cliente no encontrado.";
+    }
+}
 
-                $id = $this->model->InsertClient($nombre, $apellido, $email, $telefono);
-                header('location: '. BASE_URL);
-                }
+//Actualizar cliente
+public function modificarCliente($id_cliente) {
+    
+    $nombre = isset($_POST['nombre']) ? $_POST['nombre'] : null;
+    $apellido = isset($_POST['apellido']) ? $_POST['apellido'] : null;
+    $email = isset($_POST['email']) ? $_POST['email'] : null;
+    $telefono = isset($_POST['telefono']) ? $_POST['telefono'] : null;
+ 
+    if ($nombre && $apellido && $email && $telefono) {
+        $resultado = $this->model->editarCliente($nombre, $apellido, $email, $telefono, $id_cliente);
+        
+        if ($resultado) {
+            header('Location: ' . BASE_URL);
+        } else {
+            echo "Error al actualizar el cliente.";
+        }
+    } else {
+        echo "Faltan datos. No se puede actualizar el cliente.";
+    }
+}
 
-             function removeClient($id){
-                $this->model->deleteClient($id);
-                header('location: '. BASE_URL);
-                 }
 
-            function showReservByClient($id){
-                $client = $this->model->getClient($id);
-                $reserv = $this->model->getReservationByClient($id);
-                $this->view->showReservacion($client, $reserv);
-            }
+//Añadir cliente
+    function insertarCliente(){
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
 
-            function preEdit($id_cliente){
-                $client = $this->model->getClient($id_cliente);
-                $this->view->showEditarForm($client);
-            }
+        if(empty($nombre) || empty($apellido) || empty($email) || empty($telefono)){
+            $this->view->showError("Faltan campos obligatorios!");
+            return; // Detiene la ejecución si faltan campos
+        }
 
-            function editarClient($id_cliente) {
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    $nombre = trim($_POST["nombre"]);
-                    $apellido = trim($_POST["apellido"]);
-                    $email = trim($_POST["email"]);
-                    $telefono = trim($_POST["telefono"]);
-                    var_dump($_POST); // Esto imprimirá todos los datos que se están enviando
-                    exit;
-                }
-                
-                    if (empty($nombre) || empty($apellido) || empty($email) || empty($telefono)) {
-                        $this->view->showError('Faltan campos obligatorios!');
-                        return;
-                    }
-                    $id = $this->model->editarCliente($id_cliente, $nombre, $apellido, $email, $telefono);
-
-                    if ($id) {
-                        header('location: '. BASE_URL. 'listar');
-                    } else {
-                        $this->view->showError('Error al editar cliente!');
-                    }
-                }
-            }
-
+        $this->model->InsertCliente($nombre, $apellido, $email, $telefono);
+        header('location: '.BASE_URL);
+    }
+        
+     
+}
 
 ?>

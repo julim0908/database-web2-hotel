@@ -1,0 +1,23 @@
+<?php require 'templates/header.phtml'; 
+var_dump($cliente);
+
+?>
+<h2>Editar Cliente</h2>
+<form action="<?php echo BASE_URL; ?>ActualizarCliente/<?php echo $cliente->id_cliente ?>" method="POST">
+
+    <label for="nombre">Nombre:</label>
+    <input required type="text" id="nombre" name="nombre" value="<?php echo $cliente->nombre ?>">
+    
+    <label for="apellido">Apellido:</label>
+    <input required type="text" id="apellido" name="apellido" value="<?php echo $cliente->apellido ?>">
+    
+    <label for="email">Email:</label>
+    <input required type="email" id="email" name="email" value="<?php echo $cliente->email ?>">
+    
+    <label for="telefono">Teléfono:</label>
+    <input required type="text" id="telefono" name="telefono" value="<?php echo $cliente->telefono ?>">
+    
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<?php require 'templates/footer.phtml'; ?>

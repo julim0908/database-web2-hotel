@@ -1,0 +1,13 @@
+<?php require "templates/header.phtml"; ?>
+
+<form action='login' method='POST'>
+    <label for='email'>Email</label>
+    <input type='text' id='email' name='email' required>
+
+    <label for='password'>Contraseña</label>
+    <input type="password" id="password" name="password" required autocomplete="current-password">
+
+    <button type='submit'>Login</button>
+</form>
+
+<?php require "templates/footer.phtml"; ?>
