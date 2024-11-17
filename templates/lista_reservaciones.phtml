@@ -1,0 +1,32 @@
+<?php include_once 'templates/header.phtml'; ?>
+
+<h2>Lista de Reservaciones</h2>
+    <table>
+        <tr>
+            <th>Numero de habitación</th>
+            <th>Fecha de entrada</th>
+            <th>Fecha de salida</th>
+            <th>Monto</th>
+            <th>Id reservación</th>
+            <th>Acciones</th>
+        </tr>
+        <?php foreach ($reservacion as $reserva) { ?>
+            <tr>
+                <td><?php echo $reserva->numero_habitacion; ?></td>
+                <td><?php echo $reserva->fecha_entrada; ?></td>
+                <td><?php echo $reserva->fecha_salida; ?></td>
+                <td><?php echo $reserva->monto; ?></td>
+                <td><?php echo $reserva->id_reservacion; ?></td>
+                <td>
+                    <a href="<?php echo 'editarReservacion/'.$reserva->id_reservacion ?>">Editar</a>
+                    <a href="<?php echo 'eliminarReserva/'.$reserva->id_reservacion?>">Eliminar</a>
+                    <a href="<?php echo 'listarClientes/'.$reserva->id_reservacion; ?>">Ver cliente</a>
+
+                    
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+<?php include_once 'templates/footer.phtml'; 
+      include_once 'templates/form_agregar_reserva.phtml';
+?>
