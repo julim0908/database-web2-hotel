@@ -61,7 +61,7 @@ switch ($params[0]) {
         break;
     case 'AgregarReserva':
         $controller = new ReservacionController();
-        $controller->addReservacion();
+        $controller->AddReservacion();
         break;
     case 'editarReservacion':
         $controller = new ReservacionController();

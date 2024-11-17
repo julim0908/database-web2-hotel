@@ -1,22 +1,17 @@
 <?php
+require_once 'app/models/model.php';
 class ReservacionModel extends model {
 
     function getReservacion()
-    {
-        $query = $this->db->prepare("SELECT * FROM reservaciones");
+    {   $query = $this->db->prepare("SELECT * FROM reservaciones");
         $query->execute();
-        $reservacion = $query->fetchAll(PDO::FETCH_OBJ); // Obtiene los resultados como objetos
-       // var_dump($Reservacion);
-        return $reservacion;
+        return $query->fetchAll(PDO::FETCH_OBJ);  
     }
 
-    function insertReservacion($numero_habitacion, $fecha_entrada, $fecha_salida, $monto, $idCliente)
-    {
+    function insertReservacion($numero_habitacion, $fecha_entrada, $fecha_salida, $monto, $idCliente){
         $query = $this->db->prepare("INSERT INTO reservaciones (numero_habitacion, fecha_entrada, fecha_salida, monto, id_cliente) VALUES (?, ?, ?, ?, ?)");
         $query->execute([$numero_habitacion, $fecha_entrada, $fecha_salida, $monto, $idCliente]);
-
-
-        return $this->db->lastInsertId();  
+        return $this->db->lastInsertId();               
     }
 
     function deleteReservation($id){

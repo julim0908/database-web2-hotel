@@ -17,49 +17,31 @@ class ReservacionController {
         $this->view->showReservaciones($reservacion);   
     }
 
-    function addReservacion() {
-         // Asignar los valores
-         $numero_habitacion = $_POST['numeroHabitacion'];
-         $fecha_entrada = $_POST['entrada'];
-         $fecha_salida = $_POST['salida'];
-         $monto = $_POST['monto'];
-         $idCliente = $_POST['id_cliente'];
+    function AddReservacion() {
+        // Asignar los valores
+        $numero_habitacion = $_POST['numeroHabitacion'];
+        $fecha_entrada = $_POST['entrada'];
+        $fecha_salida = $_POST['salida'];
+        $monto = $_POST['monto'];
+        $idCliente = $_POST['id_cliente'];
         
         // Verificar que los campos existan y no estén vacíos
         if (empty($numero_habitacion) || empty($fecha_entrada) || empty($fecha_salida) || empty($monto) || empty($idCliente)) {
             $this->view->showError("Falta llenar campos obligatorios");
             return;
         }        
-            $getIdcliente = $this->model->getClientByReservation($idCliente);
-
-           if(!$getIdcliente){
-            $this->view->showError("no existe cliente con ese id");
-            return;
-            header('Location:' . BASE_URL . 'listarReservas');
-            }
-                
-
-         $id = $this->model->insertReservacion($numero_habitacion, $fecha_entrada, $fecha_salida, $monto, $idCliente);
-
-         if(!$id){
-            $this->view->showError("Error al insertar reserva");
-         }else
-         
+    
+        $this->model->insertReservacion($numero_habitacion, $fecha_entrada, $fecha_salida, $monto, $idCliente);
         header('Location:' . BASE_URL . 'listarReservas');
     }
 
+
     function removeReservation($id) {
         $this->model->deleteReservation($id);
-        header('location: ' . BASE_URL);
+        header('location: ' . BASE_URL . 'listarReservas');
     }
 
     
-
-    function showClientByReserv($id) {
-        $reserv = $this->model->getReservacion($id);
-        $client = $this->model->getClientByReservation($id);
-        $this->view->showClient($client, $reserv);
-    }   
 
     public function showFormEditReservation($idReserva) {
         $reserva = $this->model->getReservaById($idReserva);
