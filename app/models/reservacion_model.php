@@ -45,8 +45,6 @@ class ReservacionModel extends model {
         }
     }
     
-
-
     public function getReservaById($idReserva) {
         // Preparar la consulta SQL para obtener la reserva por su ID
         $query = $this->db->prepare("SELECT * FROM reservaciones WHERE id_reservacion = ?");
