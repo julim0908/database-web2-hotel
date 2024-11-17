@@ -1,0 +1,20 @@
+<!-- Formulario de alta de tarea -->
+<form action="agregarReserva" method="POST" class="my-4">
+
+    <label for="numeroHabitacion">Numero de habitacion</label>
+    <input name="numeroHabitacion" type="number" class="form-control" id="numero_habitacion" required>
+
+    <label for="fecha_entrada">fecha de entrada</label>
+    <input name="entrada" type="date" class="form-control" id="fecha_entrada" required>
+
+    <label for="fecha_salida">fecha de salida</label>
+    <input name="salida" type="date" class="form-control" id="fecha_salida" required>
+
+    <label for="monto">Monto</label>
+    <input name="monto" class="form-control" id="monto" type="number" required>
+
+    <label for="idCliente">id cliente</label>
+    <input name="id_cliente" class="form-control" id="id_cliente" type="number" required>
+
+    <button type="submit" class="btn btn-primary mt-2">Agregar</button>
+</form>
