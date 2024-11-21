@@ -16,6 +16,7 @@ Trabajamos sobre la base de datos de la entrega anterior, implementando una tabl
 Nuestro proyecto es un gestionador de tareas para un hotel, tratando asi, de facilitarle a un recepcionista su trabajo
 
 REENTREGA TPE 2: Para lograr entrar a nuestro proyecto, se debe ingresar mediante las branch. Tuvimos un problema con las rutas relativas:
+Si se accede desde la URL a listarReservas/ ; las implementaciones funcionan correctamente. 
 En este trabajo implementamos routeo semantico, con la tecnica MVC. Las rutas relativas no están funcionando correctamente, por lo que solo se puede acceder a una de las entidades.
 
 Para ingresar usando el login, el usuario es:
